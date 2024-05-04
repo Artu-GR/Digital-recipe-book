@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 2
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-input placeholder="Ingresa la receta: " (ionChange)="getRecipes()" [(ngModel)]="query"></ion-input>
+
+  <ion-list *ngIf="recipes && recipes.length">
+    <ion-item *ngFor="let recipe of recipes">
+      <ion-thumbnail slot="start">
+        <img [src]="recipe.image" alt="Recipe Image">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ recipe.title }}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+
+</ion-content>

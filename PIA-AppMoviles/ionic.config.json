@@ -1,0 +1,7 @@
+{
+  "name": "PIA-AppMoviles",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
