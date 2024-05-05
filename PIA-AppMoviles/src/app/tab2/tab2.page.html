@@ -8,18 +8,28 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-input placeholder="Ingresa la receta: " (ionChange)="getRecipes()" [(ngModel)]="query"></ion-input>
+  <div>
 
-  <ion-list *ngIf="recipes && recipes.length">
-    <ion-item *ngFor="let recipe of recipes">
-      <ion-thumbnail slot="start">
-        <img [src]="recipe.image" alt="Recipe Image">
-      </ion-thumbnail>
-      <ion-label>
-        <h2>{{ recipe.title }}</h2>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  
+  </div>
+
+  <div>
+    <ion-input placeholder="Ingresa la receta: " (ionChange)="getRecipes()" [(ngModel)]="query"></ion-input>
+
+    <ion-list *ngIf="recipes && recipes.length">
+      <ion-card *ngFor="let recipe of recipes">
+        <img [src]="recipe.image" alt="Recipe Image" class="recipeImage">
+        <ion-card-header>
+          <ion-card-title>
+            <ion-label>
+              <h2>{{ recipe.title }}</h2>
+            </ion-label>
+          </ion-card-title>      
+        </ion-card-header>
+
+        <ion-button expand="block" fill="clear">Ver más detalles +</ion-button>
+        <!--a href="">Ver más detalles +</a-->
+      </ion-card>
+    </ion-list>
+  </div>
 
 </ion-content>
