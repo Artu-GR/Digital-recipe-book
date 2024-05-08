@@ -18,16 +18,18 @@
     <ion-list *ngIf="recipes && recipes.length">
       <ion-card *ngFor="let recipe of recipes">
         <img [src]="recipe.image" alt="Recipe Image" class="recipeImage">
+        <ion-button class="favButton" fill="outline" *ngIf="!favs.includes(recipe.id)" (click)="addFav(recipe.id)"><ion-icon name="heart-outline"></ion-icon></ion-button>
+        <ion-button class="favButton" fill="solid" *ngIf="favs.includes(recipe.id)" (click)="delFav(recipe.id)"><ion-icon name="heart"></ion-icon></ion-button>
         <ion-card-header>
           <ion-card-title>
-            <ion-label>
+            <ion-label >
               <h2>{{ recipe.title }}</h2>
             </ion-label>
           </ion-card-title>      
         </ion-card-header>
 
-        <ion-button expand="block" fill="clear">Ver más detalles +</ion-button>
-        <!--a href="">Ver más detalles +</a-->
+        <!--ion-button expand="block" fill="clear" [routerLink]='[/recipe-details, id]'>Ver más detalles +</ion-button-->
+        <ion-button expand="block" fill="clear" [routerLink]="['/details', recipe]">Ver más detalles +</ion-button>
       </ion-card>
     </ion-list>
   </div>

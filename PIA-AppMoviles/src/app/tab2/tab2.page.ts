@@ -15,6 +15,8 @@ export class Tab2Page {
 
   recipes: any[] = [];
 
+  favs: any[] = [];
+
   getRecipes(){
     if(this.query.trim() !== ''){
       this.spoonacularService.searchRecipes(this.query).subscribe(
@@ -34,4 +36,11 @@ export class Tab2Page {
     }
   }
 
+  //FUNCIONES DE PRUEBA, ENLAZAR A BASE DE DATOS
+  addFav(recipe: any){
+    this.favs.push(recipe);
+  }
+  delFav(recipe: any){
+    this.favs.splice(this.favs.indexOf(recipe), 1);
+  }
 }

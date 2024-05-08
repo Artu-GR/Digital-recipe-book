@@ -18,6 +18,14 @@ const routes: Routes = [
       {
         path: 'tab3',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+      }/*,
+      {
+        path: 'details',
+        loadChildren: () => import('../recipe-details/recipe-details.module').then(m => m.RecipeDetailsComponentModule)
+      }*/,
+      {
+        path: 'tab4',
+        loadChildren: () => import('../tab4/tab4.module').then(m => m.Tab4ComponentModule)
       },
       {
         path: '',
