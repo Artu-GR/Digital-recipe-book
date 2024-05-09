@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pia-catalogoderecetas": {
+      "hosting": {
+        "app": [
+          "pia-catalogoderecetas"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "pia-catalogoderecetas"
+  }
+}
