@@ -1,5 +1,6 @@
 import { Injectable, inject } from "@angular/core";
-import { Auth, authState } from "@angular/fire/auth";
+import { Auth, authState, GoogleAuthProvider, signInWithPopup } from "@angular/fire/auth";
+import { Router } from "@angular/router";
 import { UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "@firebase/auth";
 
 export interface Credential {
@@ -14,6 +15,7 @@ export class AuthService {
     private auth: Auth = inject(Auth)
 
     readonly authState$ = authState(this.auth)
+    private _router = inject(Router);
 
     signUpWithEmailAndPassword(credential: Credential) : Promise<UserCredential>{
         return createUserWithEmailAndPassword(
@@ -29,5 +31,20 @@ export class AuthService {
             credential.email,
             credential.password
         )
+    }
+
+    logOut() {
+        return this.auth.signOut();
+    }
+
+    async signInWithGoogleProvider(): Promise <UserCredential>{
+        const provider = new GoogleAuthProvider()
+
+        try {
+            const result = await signInWithPopup(this.auth,provider)
+            return result;
+        } catch (error:any) {
+            return error;
+        }
     }
 }

@@ -30,6 +30,8 @@
       <ion-button (click)="signUp()" [disabled]="!signUpForm.valid" > Registrarse </ion-button>
     </form> 
 
+    <ion-button (click)="signUpWithGoogle()"> <ion-icon  slot="start" name="logo-google" fill="outline"> </ion-icon> Registrate con google</ion-button>
+
     <span> Ya tienes una Cuenta? <a routerLink="/log-in"> Iniciar sesión </a></span>
     
 

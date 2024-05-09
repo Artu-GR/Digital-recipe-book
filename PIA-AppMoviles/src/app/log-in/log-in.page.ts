@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, Credential } from '../auth.service';
 import { Router } from '@angular/router';
+import { ConstantPool } from '@angular/compiler';
 
 @Component({
   selector: 'app-log-in',
@@ -18,7 +19,7 @@ export class LogInPage implements OnInit {
     this.logInForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern('[A-Za-z.+-]+@[A-Za-z]+.com'),
+        Validators.pattern('[0-9A-Za-z.+-]+@[A-Za-z]+.com'),
       ])),
       password: new FormControl('', Validators.compose([
         Validators.required,
@@ -47,6 +48,15 @@ export class LogInPage implements OnInit {
     }
     catch(err){
       console.log(err)
+    }
+  }
+
+  async logInWithGoogle(){
+    try {
+      await this.authService.signInWithGoogleProvider();
+      this._router.navigateByUrl('/tabs');
+    } catch (error) {
+      console.log(error)
     }
   }
 

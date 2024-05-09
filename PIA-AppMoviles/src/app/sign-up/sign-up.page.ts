@@ -13,7 +13,7 @@ export class SignUpPage {
 
   signUpForm: FormGroup;
 
-  private authServiece = inject(AuthService)
+  private authService = inject(AuthService)
   private _router = inject(Router)
 
   constructor(private formBuilder: FormBuilder) { 
@@ -41,11 +41,20 @@ export class SignUpPage {
     };
 
     try{
-      await this.authServiece.signUpWithEmailAndPassword(credential);
+      await this.authService.signUpWithEmailAndPassword(credential);
       this._router.navigateByUrl('/tabs')
     }
     catch(err){
       console.log(err)
+    }
+  }
+
+  async signUpWithGoogle(){
+    try {
+      this.authService.signInWithGoogleProvider()
+      this._router.navigateByUrl('/tabs')
+    } catch (error) {
+      console.log(error)
     }
   }
 
