@@ -1,20 +1,20 @@
-import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RecipeDetailsComponent } from './recipe-details.component';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { RecipeDetailsComponentRoutingModule } from './recipe-details-routing.module';
+import { IonicModule } from '@ionic/angular';
+
+import { RecipeDetailsPageRoutingModule } from './recipe-details-routing.module';
+
+import { RecipeDetailsPage } from './recipe-details.page';
 
 @NgModule({
   imports: [
-    IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
-    RecipeDetailsComponentRoutingModule
+    IonicModule,
+    RecipeDetailsPageRoutingModule
   ],
-  declarations: [RecipeDetailsComponent]
+  declarations: [RecipeDetailsPage]
 })
-export class RecipeDetailsComponentModule {}
+export class RecipeDetailsPageModule {}

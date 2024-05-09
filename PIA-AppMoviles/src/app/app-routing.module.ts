@@ -22,10 +22,11 @@ const routes: Routes = [
     path: 'log-in',
     loadChildren: () => import('./log-in/log-in.module').then( m => m.LogInPageModule),
     canActivate: [publicGuard],
+  },
+  {
+    path: 'recipe-details/:id',
+    loadChildren: () => import('./recipe-details/recipe-details.module').then( m => m.RecipeDetailsPageModule)
   }
-
-
-
 ];
 @NgModule({
   imports: [

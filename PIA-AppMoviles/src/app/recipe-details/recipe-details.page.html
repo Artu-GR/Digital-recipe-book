@@ -1,0 +1,13 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{recipe.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <img [src]="recipe.image" alt="Recipe Image" class="recipeImage">
+  
+  <ion-label>{{recipe.summary}}</ion-label>
+
+</ion-content>

@@ -9,11 +9,7 @@
 <ion-content [fullscreen]="true">
 
   <div>
-
-  </div>
-
-  <div>
-    <ion-input placeholder="Ingresa la receta: " (ionChange)="getRecipes()" [(ngModel)]="query"></ion-input>
+    <ion-searchbar placeholder="Ingresa la receta: " (ionChange)="getRecipes()" [(ngModel)]="query"></ion-searchbar>
 
     <ion-list *ngIf="recipes && recipes.length">
       <ion-card *ngFor="let recipe of recipes">
@@ -28,8 +24,7 @@
           </ion-card-title>      
         </ion-card-header>
 
-        <!--ion-button expand="block" fill="clear" [routerLink]='[/recipe-details, id]'>Ver más detalles +</ion-button-->
-        <ion-button expand="block" fill="clear" [routerLink]="['/details', recipe]">Ver más detalles +</ion-button>
+        <ion-button expand="block" fill="clear" [routerLink]="['/recipe-details', recipe.id]">Ver más detalles +</ion-button>
       </ion-card>
     </ion-list>
   </div>

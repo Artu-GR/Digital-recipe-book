@@ -9,11 +9,17 @@ export class SpoonacularService {
 
   constructor(private httpClient: HttpClient) { }
 
+  apiKey: string = '28e40e19999d48c7ad570f84cc2987ff';
+
   searchRecipes(query: string): Observable<any>{
-    return this.httpClient.get(`https://api.spoonacular.com/recipes/search?query=${query}&apiKey=4c0eef87036b4f9ab5429554ec90f87c`);
+    return this.httpClient.get(`https://api.spoonacular.com/recipes/search?query=${query}&apiKey=${this.apiKey}`);
   }
 
   getDaily(): Observable<any>{
-    return this.httpClient.get(`https://api.spoonacular.com/recipes/random?number=150&apiKey=4c0eef87036b4f9ab5429554ec90f87c`);
+    return this.httpClient.get(`https://api.spoonacular.com/recipes/random?number=150&apiKey=${this.apiKey}`);
+  }
+
+  getSingleRecipe(id: string): Observable<any>{
+    return this.httpClient.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${this.apiKey}`)
   }
 }
