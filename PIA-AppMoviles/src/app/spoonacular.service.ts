@@ -22,4 +22,8 @@ export class SpoonacularService {
   getSingleRecipe(id: string): Observable<any>{
     return this.httpClient.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${this.apiKey}`)
   }
+
+  getRecipeIngredients(id: string): Observable<any>{
+    return this.httpClient.get(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${this.apiKey}`)
+  }
 }
