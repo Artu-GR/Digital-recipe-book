@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SpoonacularService } from '../spoonacular.service';
 import { Observable } from 'rxjs';
+import { FavServiceService } from '../fav-service.service';
 
 @Component({
   selector: 'app-tab2',
@@ -9,13 +10,13 @@ import { Observable } from 'rxjs';
 })
 export class Tab2Page {
 
-  constructor(private spoonacularService: SpoonacularService) {}
+  constructor(private spoonacularService: SpoonacularService, private dbService: FavServiceService) {}
 
   query: string = '';
 
   recipes: any[] = [];
 
-  favs: any[] = [];
+  favs: any[] = this.dbService.favorites;
 
   getRecipes(){
     if(this.query.trim() !== ''){
@@ -36,11 +37,11 @@ export class Tab2Page {
     }
   }
 
-  //FUNCIONES DE PRUEBA, ENLAZAR A BASE DE DATOS
   addFav(recipe: any){
-    this.favs.push(recipe);
+    this.dbService.addFavorite(recipe.toString);
   }
   delFav(recipe: any){
-    this.favs.splice(this.favs.indexOf(recipe), 1);
+    this.dbService.deleteFavorite(recipe.toString)
+    //this.favs.splice(this.favs.indexOf(recipe), 1);
   }
 }

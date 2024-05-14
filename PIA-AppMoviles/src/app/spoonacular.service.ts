@@ -9,7 +9,7 @@ export class SpoonacularService {
 
   constructor(private httpClient: HttpClient) { }
 
-  apiKey: string = '28e40e19999d48c7ad570f84cc2987ff';
+  apiKey: string = '73bf64a5f64240ea9e7564f169b67705';
 
   searchRecipes(query: string): Observable<any>{
     return this.httpClient.get(`https://api.spoonacular.com/recipes/search?query=${query}&apiKey=${this.apiKey}`);
