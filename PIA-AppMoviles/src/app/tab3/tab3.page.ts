@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FavServiceService } from '../fav-service.service';
 import { SpoonacularService } from '../spoonacular.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -9,7 +11,10 @@ import { SpoonacularService } from '../spoonacular.service';
 })
 export class Tab3Page {
 
-  constructor(private dbService: FavServiceService, private Spoonacular: SpoonacularService) {
+  constructor(private dbService: FavServiceService, 
+    private Spoonacular: SpoonacularService,
+    private authService: AuthService,
+    private _router: Router) {
     this.dbService.favoritesChanged.subscribe(() => {
       this.convertFavs();
     });
@@ -37,6 +42,15 @@ export class Tab3Page {
         }
       )
     })
+  }
+
+  async logOut(){
+    try {
+      await this.authService.logOut();
+      this._router.navigateByUrl('/');
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 }

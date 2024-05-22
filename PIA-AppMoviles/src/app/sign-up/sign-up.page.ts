@@ -42,7 +42,8 @@ export class SignUpPage {
 
     try{
       await this.authService.signUpWithEmailAndPassword(credential);
-      this._router.navigateByUrl('/tabs')
+      await this.authService.updateUsername(this.signUpForm.value.username);
+      this._router.navigateByUrl('/tabs');
     }
     catch(err){
       console.log(err)
@@ -51,11 +52,11 @@ export class SignUpPage {
 
   async signUpWithGoogle(){
     try {
-      this.authService.signInWithGoogleProvider()
-      this._router.navigateByUrl('/tabs')
+      await this.authService.signInWithGoogleProvider()
     } catch (error) {
       console.log(error)
     }
+    this._router.navigateByUrl('/tabs');
   }
 
   

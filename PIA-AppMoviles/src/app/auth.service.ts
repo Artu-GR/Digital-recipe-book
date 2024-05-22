@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Auth, authState, GoogleAuthProvider, signInWithPopup } from "@angular/fire/auth";
+import { Auth, authState, getAuth, GoogleAuthProvider, signInWithPopup, updatePassword, updateProfile, user } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import { UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "@firebase/auth";
 
@@ -15,7 +15,15 @@ export class AuthService {
     private auth: Auth = inject(Auth)
 
     readonly authState$ = authState(this.auth)
-    private _router = inject(Router);
+
+    getUserInfo() {
+        return {
+            'username': this.auth.currentUser?.displayName,
+            'email': this.auth.currentUser?.email,
+            'photoURL': this.auth.currentUser?.photoURL,
+        }
+        
+    }
 
     signUpWithEmailAndPassword(credential: Credential) : Promise<UserCredential>{
         return createUserWithEmailAndPassword(
@@ -23,6 +31,29 @@ export class AuthService {
             credential.email,
             credential.password
         )
+    }
+
+    updateUsername(username: string) {
+        if (this.auth.currentUser !== null){
+                updateProfile(this.auth.currentUser, {
+                    displayName: username
+                }).then( () => {
+                    console.log(this.auth.currentUser?.displayName);
+
+                } ).catch((err) => {
+                    console.log(err);
+                })
+        }
+
+    }
+
+    changePassword(password: string){
+        if (this.auth.currentUser !== null)
+        updatePassword(this.auth.currentUser, password).then(() => {
+            console.log('Contraseña cambiada');
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     logInWithEmailAndPassword(credential: Credential){
@@ -37,6 +68,8 @@ export class AuthService {
         return this.auth.signOut();
     }
 
+
+
     async signInWithGoogleProvider(): Promise <UserCredential>{
         const provider = new GoogleAuthProvider()
 
@@ -47,4 +80,6 @@ export class AuthService {
             return error;
         }
     }
+
+
 }

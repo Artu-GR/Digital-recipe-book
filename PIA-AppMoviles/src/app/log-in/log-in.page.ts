@@ -54,10 +54,10 @@ export class LogInPage implements OnInit {
   async logInWithGoogle(){
     try {
       await this.authService.signInWithGoogleProvider();
-      this._router.navigateByUrl('/tabs');
     } catch (error) {
       console.log(error)
     }
+    this._router.navigateByUrl('/tabs');
   }
 
 }

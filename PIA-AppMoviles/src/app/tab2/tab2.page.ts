@@ -3,6 +3,8 @@ import { SpoonacularService } from '../spoonacular.service';
 import { Observable } from 'rxjs';
 import { FavServiceService } from '../fav-service.service';
 import { getDocs } from '@angular/fire/firestore';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -11,7 +13,10 @@ import { getDocs } from '@angular/fire/firestore';
 })
 export class Tab2Page {
 
-  constructor(private spoonacularService: SpoonacularService, private dbService: FavServiceService) {}
+  constructor(private spoonacularService: SpoonacularService, 
+    private dbService: FavServiceService,
+  private authService: AuthService,
+  private _router: Router) {}
 
   ngOnInit(){
     this.convertFavs();
@@ -65,4 +70,14 @@ export class Tab2Page {
       this.favIds.push(recipe);
     })
   }
+
+  async logOut(){
+    try {
+      await this.authService.logOut();
+      this._router.navigateByUrl('/');
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 }

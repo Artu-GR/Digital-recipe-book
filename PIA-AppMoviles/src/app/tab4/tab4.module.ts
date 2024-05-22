@@ -1,7 +1,7 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Tab4Component } from './tab4.component';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
@@ -13,7 +13,8 @@ import { Tab4ComponentRoutingModule } from './tab4-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab4ComponentRoutingModule
+    Tab4ComponentRoutingModule,
+    ReactiveFormsModule,
   ],
   declarations: [Tab4Component]
 })
