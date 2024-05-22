@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Recetario
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,8 +14,8 @@
     <ion-list *ngIf="recipes && recipes.length">
       <ion-card *ngFor="let recipe of recipes">
         <img [src]="recipe.image" alt="Recipe Image" class="recipeImage">
-        <ion-button class="favButton" fill="outline" *ngIf="!favs.includes(recipe.id)" (click)="addFav(recipe.id)"><ion-icon name="heart-outline"></ion-icon></ion-button>
-        <ion-button class="favButton" fill="solid" *ngIf="favs.includes(recipe.id)" (click)="delFav(recipe.id)"><ion-icon name="heart"></ion-icon></ion-button>
+        <ion-button class="favButton" fill="outline" *ngIf="!favIds.includes(recipe.id)" (click)="addFav(recipe.id)"><ion-icon name="heart-outline"></ion-icon></ion-button>
+        <ion-button class="favButton" fill="solid" *ngIf="favIds.includes(recipe.id)" (click)="delFav(recipe.id)"><ion-icon name="heart"></ion-icon></ion-button>
         <ion-card-header>
           <ion-card-title>
             <ion-label >

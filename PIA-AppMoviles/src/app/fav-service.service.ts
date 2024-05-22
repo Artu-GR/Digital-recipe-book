@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { collectionData, getFirestore } from '@angular/fire/firestore';
+import { deleteDoc, getFirestore } from '@angular/fire/firestore';
 import { collection, addDoc, doc, where, getDocs, query } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -25,35 +25,28 @@ const CollectionData = collection(db, "RecetasFavoritas");
 })
 
 export class FavServiceService {
+  public favoritesChanged: EventEmitter<void> = new EventEmitter<void>();
+  constructor() {}
 
-  constructor() {
-    this.getFavorites();
-  }
-
-  public favorites: any[] = [];
-
-  async addFavorite(recipe: string){
+  async addFavorite(recipe: any){
     await addDoc(CollectionData, {
       RecipeID: recipe,
       UserID: user?.uid
     });
+    this.favoritesChanged.emit();
   }
 
   async deleteFavorite(recipeID: string){
     const q = query(CollectionData, where("UserID", "==", user?.uid), where("RecipeID","==",recipeID));
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data)
-    })
+    querySnapshot.forEach(async (docSnapshot) => {
+      await deleteDoc(doc(db, "RecetasFavoritas", docSnapshot.id));
+    });
+    this.favoritesChanged.emit();
   }
 
   async getFavorites(){
     const q = query(CollectionData, where("UserID", "==", user?.uid));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      this.favorites.push(doc.data);
-    });
+    return await getDocs(q);
   }
-
-
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SpoonacularService } from '../spoonacular.service';
 import { Observable } from 'rxjs';
 import { FavServiceService } from '../fav-service.service';
+import { getDocs } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-tab2',
@@ -12,11 +13,17 @@ export class Tab2Page {
 
   constructor(private spoonacularService: SpoonacularService, private dbService: FavServiceService) {}
 
+  ngOnInit(){
+    this.convertFavs();
+  }
+
   query: string = '';
 
   recipes: any[] = [];
 
-  favs: any[] = this.dbService.favorites;
+  favs: any[] = [];
+
+  favIds: any[] = [];
 
   getRecipes(){
     if(this.query.trim() !== ''){
@@ -38,10 +45,24 @@ export class Tab2Page {
   }
 
   addFav(recipe: any){
-    this.dbService.addFavorite(recipe.toString);
+    this.dbService.addFavorite(recipe);
+    this.convertFavs();
   }
+
   delFav(recipe: any){
-    this.dbService.deleteFavorite(recipe.toString)
-    //this.favs.splice(this.favs.indexOf(recipe), 1);
+    this.dbService.deleteFavorite(recipe);
+    this.convertFavs();
+  }
+  
+  async convertFavs(){    
+    this.favs = [];
+    (await this.dbService.getFavorites()).forEach((doc) => {
+      this.favs.push(doc.data());
+    });
+    this.favIds = [];
+    this.favs.map((recipe: any) => {
+      recipe = recipe.RecipeID;
+      this.favIds.push(recipe);
+    })
   }
 }

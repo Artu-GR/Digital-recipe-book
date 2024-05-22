@@ -1,17 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Favoritos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-button *ngIf="!favs.length" [routerLink]="['/tabs/tab2']">
+    <ion-label>Aún no tienes recetas favoritas<br>Descubre nuevas recetas!</ion-label>
+  </ion-button>
+
+  <ion-list *ngIf="favs && favs.length">
+    <ion-item *ngFor="let recipe of recipes"> 
+      <img [src]="recipe.image">
+
+      <ion-label>{{recipe.title}}</ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
