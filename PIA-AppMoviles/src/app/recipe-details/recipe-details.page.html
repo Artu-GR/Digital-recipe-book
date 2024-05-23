@@ -1,6 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>{{recipe.title}}</ion-title>
+    <ion-button [routerLink]="['/tabs/tab2']"><ion-icon name="arrow-back-outline"></ion-icon>Ver más recetas</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +17,7 @@
   <div class="section2">
     <div class="ingredients">
       <ion-label color="tertiary"><b>-- Ingredients --</b></ion-label>
-      <ion-list *ngFor="let ingredient of ingredients">
+      <ion-list *ngFor="let ingredient of ingredients" lines="none">
         <ion-item>
           <ion-label>{{ingredient}}</ion-label>
         </ion-item>

@@ -49,12 +49,16 @@ export class Tab2Page {
     }
   }
 
-  addFav(recipe: any){
+  addFav(recipe: any, event: Event){
+    event.preventDefault();
+    event.stopPropagation();
     this.dbService.addFavorite(recipe);
     this.convertFavs();
   }
 
-  delFav(recipe: any){
+  delFav(recipe: any, event: Event){
+    event.preventDefault();
+    event.stopPropagation();
     this.dbService.deleteFavorite(recipe);
     this.convertFavs();
   }

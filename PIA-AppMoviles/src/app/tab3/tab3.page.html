@@ -11,13 +11,13 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-button *ngIf="!favs.length" [routerLink]="['/tabs/tab2']">
+  <ion-button *ngIf="!favs.length" [routerLink]="['/tabs/tab2']" expand="block" fill="outline">
     <ion-label>Aún no tienes recetas favoritas<br>Descubre nuevas recetas!</ion-label>
   </ion-button>
 
-  <ion-list *ngIf="favs && favs.length">
-    <ion-item *ngFor="let recipe of recipes"> 
-      <img [src]="recipe.image">
+  <ion-list *ngIf="favs && favs.length" class="favorite-list">
+    <ion-item *ngFor="let recipe of recipes" [routerLink]="['/recipe-details', recipe.id]" class="recipe-card"> 
+      <img [src]="recipe.image" class="recipe-image">
 
       <ion-label>{{recipe.title}}</ion-label>
     </ion-item>

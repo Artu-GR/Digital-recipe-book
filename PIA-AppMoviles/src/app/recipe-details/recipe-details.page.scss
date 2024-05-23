@@ -33,3 +33,16 @@
     margin-left: 3%;
     width: 30%;
 }
+
+ion-title{
+    margin-top: 10px;
+}
+
+ion-button{
+    display: flex;
+    justify-self: end; 
+    margin-left: 80%;
+    margin-right: 2%;
+    z-index: 2;
+    margin-top: -30px;
+}

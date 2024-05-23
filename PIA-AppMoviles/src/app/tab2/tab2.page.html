@@ -1,8 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button (click)="logOut()" fill="outline"> <ion-icon slot="start" name="log-out"></ion-icon> Cerrar sesión </ion-button>
-    </ion-buttons>
     <ion-title>
       Recetario
     </ion-title>
@@ -14,11 +11,11 @@
   <div>
     <ion-searchbar placeholder="Ingresa la receta: " (ionChange)="getRecipes()" [(ngModel)]="query"></ion-searchbar>
 
-    <ion-list *ngIf="recipes && recipes.length">
-      <ion-card *ngFor="let recipe of recipes">
+    <ion-list *ngIf="recipes && recipes.length">      
+      <ion-card *ngFor="let recipe of recipes" [routerLink]="['/recipe-details', recipe.id]">
         <img [src]="recipe.image" alt="Recipe Image" class="recipeImage">
-        <ion-button class="favButton" fill="outline" *ngIf="!favIds.includes(recipe.id)" (click)="addFav(recipe.id)"><ion-icon name="heart-outline"></ion-icon></ion-button>
-        <ion-button class="favButton" fill="solid" *ngIf="favIds.includes(recipe.id)" (click)="delFav(recipe.id)"><ion-icon name="heart"></ion-icon></ion-button>
+        <ion-button class="favButton" fill="outline" *ngIf="!favIds.includes(recipe.id)" (click)="addFav(recipe.id, $event)"><ion-icon name="heart-outline"></ion-icon></ion-button>
+        <ion-button class="favButton" fill="solid" *ngIf="favIds.includes(recipe.id)" (click)="delFav(recipe.id, $event)"><ion-icon name="heart"></ion-icon></ion-button>
         <ion-card-header>
           <ion-card-title>
             <ion-label >
@@ -26,8 +23,6 @@
             </ion-label>
           </ion-card-title>      
         </ion-card-header>
-
-        <ion-button expand="block" fill="clear" [routerLink]="['/recipe-details', recipe.id]">Ver más detalles +</ion-button>
       </ion-card>
     </ion-list>
   </div>
