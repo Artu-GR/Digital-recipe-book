@@ -36,9 +36,10 @@ export class SignUpPage {
     };
 
     try{
-      this.signUpForm.reset();
+
       await this.authService.signUpWithEmailAndPassword(credential);
       await this.authService.updateUsername(this.signUpForm.value.username);
+      this.signUpForm.reset();
       this._router.navigateByUrl('/tabs');
     }
     catch(err){

@@ -1,13 +1,15 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { Subscription, filter } from 'rxjs';
 
 interface userInfo {
   'username': string | null| undefined,
   'email': string | null| undefined,
   'photoURL': string | null| undefined,
+  'emailVerified': boolean | null | undefined,
 }
 
 @Component({
@@ -16,13 +18,18 @@ interface userInfo {
   styleUrls: ['./tab4.component.scss'],
 })
 
-export class Tab4Component  implements DoCheck {
+export class Tab4Component  implements OnInit, OnDestroy, DoCheck {
 
     currentUserInfo: userInfo = {
       username: '',
       email: '',
       photoURL: '',
+      emailVerified: false,
     };
+
+  isAlertOpen = false;
+
+  private subscription : Subscription | null = null;
 
   
   constructor(private authService: AuthService,
@@ -40,7 +47,7 @@ export class Tab4Component  implements DoCheck {
   }, { validators:  this.samePassword()} 
 )
 
-  public alertButtons = [
+  public alertButtonsPassword = [
     {
       text: 'Cancelar',
       role: 'cancel',
@@ -57,10 +64,35 @@ export class Tab4Component  implements DoCheck {
     },
   ];
 
-  ngDoCheck() {
-    this.currentUserInfo = this.authService.getUserInfo()
+
+  alertButtonsVerified = ['Entendido']
+
+  async ngOnInit() {
+
+    this.subscription = this._router.events.pipe().subscribe(event => {
+
+          this.PasswordForm.reset();
+          this.UserNameForm.reset();
+          if (this.currentUserInfo.emailVerified){
+            this.setAlertOpen(true);
+          }
+      
+    })
+  }
+
+  ngDoCheck(): void {
+    this.currentUserInfo = this.authService.getUserInfo();
     if (!this.currentUserInfo.photoURL)
       this.currentUserInfo.photoURL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRip_-yACYt4Zrk3aQ7A-EgThBZ_5Cf5gaP8xlLUFH13Q&s";
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription)
+    this.subscription.unsubscribe();
+  }
+
+  setAlertOpen(bool : boolean){
+    this.isAlertOpen = bool;
   }
 
 

@@ -10,10 +10,18 @@
 </ion-header>
 
 <ion-alert
+  [isOpen]="isAlertOpen"
+  header="AVISO"
+  message="Las funciones de este menú no están disponibles para usuarios con verificación de google."
+  [buttons]="alertButtonsVerified"
+  (didDismiss)="setAlertOpen(false)"
+></ion-alert>
+
+<ion-alert
   trigger="updatePassword"
   header="AVISO"
   message="¿Desea continuar y cambiar la contraseña?"
-  [buttons]="alertButtons"
+  [buttons]="alertButtonsPassword"
 ></ion-alert>
 
 <ion-content [fullscreen]="true">
@@ -34,13 +42,13 @@
     </div>
 
     <div id="options-container" class="ion-padding">
-      <form [formGroup]="UserNameForm">
+      <form [formGroup]="UserNameForm" (ngSubmit)="updateUserName()">
         
           
           <h1> Cambiar nombre de usuario </h1>
 
             <ion-input formControlName="username" fill="outline" placeholder="Nombre de Usuario">  </ion-input>
-            <ion-button type="submit" [disabled]="!UserNameForm.valid"> Aceptar </ion-button>
+            <ion-button type="submit" [disabled]="!UserNameForm.valid || currentUserInfo.emailVerified"> Aceptar </ion-button>
           
         
       </form>
@@ -52,7 +60,7 @@
 
           <ion-input type="password" formControlName="password"  fill="outline" placeholder="Nueva Contraseña">  </ion-input>
           <ion-input type="password" formControlName="confirmPassword"  fill="outline" placeholder="Confirmar Contraseña">  </ion-input>
-          <ion-button id="updatePassword" [disabled]="!PasswordForm.valid"> Aceptar </ion-button>
+          <ion-button id="updatePassword" [disabled]="!PasswordForm.valid || currentUserInfo.emailVerified"> Aceptar </ion-button>
         
       
     </form>

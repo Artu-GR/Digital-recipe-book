@@ -21,6 +21,7 @@ export class AuthService {
             'username': this.auth.currentUser?.displayName,
             'email': this.auth.currentUser?.email,
             'photoURL': this.auth.currentUser?.photoURL,
+            'emailVerified': this.auth.currentUser?.emailVerified,
         }
         
     }
@@ -34,6 +35,7 @@ export class AuthService {
     }
 
     updateUsername(username: string) {
+        console.log('yes')
         if (this.auth.currentUser !== null){
                 updateProfile(this.auth.currentUser, {
                     displayName: username
