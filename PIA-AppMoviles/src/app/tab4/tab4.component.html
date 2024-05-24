@@ -18,47 +18,48 @@
 
 <ion-content [fullscreen]="true">
 
-<ion-grid>
-  <ion-row>
-    <ion-col size="5">
-      <div id="info-container" class="ion-padding">
-        <div style="width: 20%; height: auto;">
-          <img id="Image" [src]=currentUserInfo.photoURL>
-        </div>
-          <h1>
-            {{currentUserInfo.username}}
-          </h1>
-          <h6>
-            {{currentUserInfo.email}}
-          </h6>
+ <div id="container">
+
+
+    <div id="info-container" class="ion-padding">
+      <div style="width: 20%; height: auto;">
+        <img id="Image" [src]=currentUserInfo.photoURL>
+      </div>
+        <h1>
+          {{currentUserInfo.username}}
+        </h1>
+        <h6>
+          {{currentUserInfo.email}}
+        </h6>
     </div>
-    </ion-col>
-    <ion-col size="7">
+
+    <div id="options-container" class="ion-padding">
       <form [formGroup]="UserNameForm">
-        <div id="options-container" class="ion-padding">
+        
           
           <h1> Cambiar nombre de usuario </h1>
 
             <ion-input formControlName="username" fill="outline" placeholder="Nombre de Usuario">  </ion-input>
             <ion-button type="submit" [disabled]="!UserNameForm.valid"> Aceptar </ion-button>
           
-          </div>
+        
       </form>
 
       <form [formGroup]="PasswordForm" (ngSubmit)="updatePassword()">
-        <div id="options-container" class="ion-padding">
-          
-          <h1> Cambiar Constraseña </h1>
+      
+        
+        <h1> Cambiar Constraseña </h1>
 
-            <ion-input type="password" formControlName="password"  fill="outline" placeholder="Nueva Contraseña">  </ion-input>
-            <ion-input type="password" formControlName="confirmPassword"  fill="outline" placeholder="Confirmar Contraseña">  </ion-input>
-            <ion-button id="updatePassword" [disabled]="!PasswordForm.valid"> Aceptar </ion-button>
-          
-        </div>
-      </form>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+          <ion-input type="password" formControlName="password"  fill="outline" placeholder="Nueva Contraseña">  </ion-input>
+          <ion-input type="password" formControlName="confirmPassword"  fill="outline" placeholder="Confirmar Contraseña">  </ion-input>
+          <ion-button id="updatePassword" [disabled]="!PasswordForm.valid"> Aceptar </ion-button>
+        
+      
+    </form>
+  </div>
+ </div>
+
+
 
 
 </ion-content>

@@ -1,38 +1,57 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Registrar Cuenta</ion-title>
+    <ion-title> Nueva cuenta </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="light">
+<ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Registrar Cuenta</ion-title>
+      <ion-title size="large"> Nueva cuenta </ion-title>
     </ion-toolbar>
   </ion-header>
 
+  <div id="container">
     <form [formGroup] = "signUpForm">
-      <ion-list [inset]="true">
-        <ion-item>
-          <ion-label for="name" position="floating"> Nombre de Usuario </ion-label>
-          <ion-input name="username" type="text" formControlName="username"> </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label for="email" position="floating" > Correo Electrónico </ion-label>
-          <ion-input name="email" type="text" formControlName="email"> </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label for="password" position="floating"> Contraseña </ion-label>
-          <ion-input name="password" type="password" formControlName="password"> </ion-input>
-        </ion-item> 
-      </ion-list>
+
+          <h5> Nombre de usuario </h5>
+          <ion-input 
+          fill="outline" 
+          name="username"
+          errorText="Se neceita un nombre" 
+          type="text" 
+          formControlName="username"> </ion-input>
+          
+          <h5> Correo electrónico </h5>
+          <ion-input 
+          fill="outline" 
+          name="email" 
+          type="text" 
+          errorText="Correo inválido"
+          formControlName="email"> </ion-input>     
+          
+          <h5> Contraseña </h5>
+          <ion-input fill="outline" 
+          name="password" 
+          type="password"
+          formControlName="password"> </ion-input>
+
+          <h5> Confirmar contraseña </h5>
+          <ion-input fill="outline"  
+          type="password" 
+          formControlName="confirmPassword"> </ion-input>
 
       <ion-button (click)="signUp()" [disabled]="!signUpForm.valid" > Registrarse </ion-button>
     </form> 
 
-    <ion-button (click)="signUpWithGoogle()"> <ion-icon  slot="start" name="logo-google" fill="outline"> </ion-icon> Registrate con google</ion-button>
 
-    <span> Ya tienes una Cuenta? <a routerLink="/log-in"> Iniciar sesión </a></span>
+    <ion-button expand="block" (click)="signUpWithGoogle()"> <ion-icon  slot="start" name="logo-google" fill="outline"> </ion-icon> Registrate con google</ion-button>
+    <div id="link-text">
+      <ion-text color="medium">
+        <span> Ya tienes una cuenta? <a routerLink="/log-in"> Inicia sesión </a> </span> 
+      </ion-text>
+    </div>
+
     
-
+  </div>
 </ion-content>

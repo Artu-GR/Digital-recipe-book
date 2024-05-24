@@ -1,33 +1,46 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>log-in</ion-title>
+    <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="light">
+<ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">log-in</ion-title>
+      <ion-title size="large"> Iniciar Sesión </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <form [formGroup] = "logInForm">
-    <ion-list [inset]="true">
-      <ion-item>
-        <ion-label position="floating" > Correo Electrónico </ion-label>
-        <ion-input type="text" formControlName="email"> </ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating"> Contraseña </ion-label>
-        <ion-input type="password" formControlName="password"> </ion-input>
-      </ion-item> 
-    </ion-list>
+  <div id="container">
+    <form [formGroup] = "logInForm">
+          
+          <h5> Correo electrónico </h5>
+          <ion-input 
+          fill="outline" 
+          name="email" 
+          type="text" 
+          errorText="Correo inválido"
+          formControlName="email"> </ion-input>     
+          
+          <h5> Contraseña </h5>
+          <ion-input fill="outline" 
+          name="password" 
+          type="password"
+          formControlName="password"> </ion-input>
 
-    <ion-button (click)="logIn()" [disabled]="!logInForm.valid" > Iniciar sesión </ion-button>
-     
-  </form>
+      <ion-button (click)="logIn()" [disabled]="!logInForm.valid" > Iniciar Sesión </ion-button>
+    </form> 
 
-  <ion-button (click)="logInWithGoogle()"> <ion-icon  slot="start" name="logo-google" fill="outline" (click)="logInWithGoogle()"> </ion-icon> Inicia sesión con google</ion-button>
 
-  <span> Todavía no tienes una cuenta? <a routerLink="/sign-up"> Registrarse </a></span>
+    <ion-button expand="block" (click)="logInWithGoogle()"> <ion-icon  slot="start" name="logo-google" fill="outline"> </ion-icon> Inicia sesión con google</ion-button>
+    <div id="link-text">
+      <ion-text color="medium">
+        <span> Todavía no tienes una cuenta? <a routerLink="/sign-up"> Registrate </a> </span> 
+      </ion-text>
+    </div>
+
+    
+  </div>
+
+  
 </ion-content>

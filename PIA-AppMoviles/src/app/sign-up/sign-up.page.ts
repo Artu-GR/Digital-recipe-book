@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { validatePassword } from '@firebase/auth';
 import { AuthService, Credential } from '../auth.service';
 import { Router } from '@angular/router';
@@ -18,17 +18,12 @@ export class SignUpPage {
 
   constructor(private formBuilder: FormBuilder) { 
     this.signUpForm = this.formBuilder.group({
-      username: new FormControl('', Validators.compose([
-        Validators.required,
-      ])),
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('[0-9A-Za-z.+-]+@[A-Za-z]+.com'),
-      ])),
-      password: new FormControl('', Validators.compose([
-        Validators.required,
-      ])),
-    });
+      username: ['', Validators.required,],
+      email: ['', Validators.compose([Validators.required,
+        Validators.pattern('[0-9A-Za-z.+-]+@[A-Za-z]+.com'),])], 
+      password: ['', Validators.required,],   
+      confirmPassword: ['', Validators.required,],
+    }, { validators: this.samePassword()});
 
   }
 
@@ -41,6 +36,7 @@ export class SignUpPage {
     };
 
     try{
+      this.signUpForm.reset();
       await this.authService.signUpWithEmailAndPassword(credential);
       await this.authService.updateUsername(this.signUpForm.value.username);
       this._router.navigateByUrl('/tabs');
@@ -57,6 +53,19 @@ export class SignUpPage {
       console.log(error)
     }
     this._router.navigateByUrl('/tabs');
+  }
+
+
+  samePassword(): ValidatorFn {
+    return (control: AbstractControl): {[ key: string ]: any } | null => {
+      const password = control.get('password');
+      const confirmPassword = control.get('confirmPassword');
+
+      if (password && confirmPassword && password.value !== confirmPassword.value){
+        return {'distinctPasswords': true};
+      }
+      return null;
+    }
   }
 
   

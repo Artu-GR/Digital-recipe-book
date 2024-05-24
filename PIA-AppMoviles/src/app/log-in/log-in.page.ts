@@ -35,6 +35,7 @@ export class LogInPage implements OnInit {
 
 
   async logIn(){
+    this.logInForm.reset();
     const credential: Credential = {
       email: this.logInForm.value.email,
       password: this.logInForm.value.password
