@@ -9,7 +9,13 @@
 <ion-content [fullscreen]="true">
 
   <div>
-    <ion-searchbar placeholder="Ingresa la receta: " (ionChange)="getRecipes()" [(ngModel)]="query"></ion-searchbar>
+    <ion-searchbar placeholder="Ingresa la receta: " (ionInput)="autocompleteSearch()" (keyup.enter)="getRecipes()"  [(ngModel)]="query"></ion-searchbar>
+
+    <ion-list *ngIf="suggestions && suggestions.length">
+      <ion-item *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+        <ion-label>{{ suggestion.title }}</ion-label>
+      </ion-item>
+    </ion-list>
 
     <ion-list *ngIf="recipes && recipes.length">      
       <ion-card *ngFor="let recipe of recipes" [routerLink]="['/recipe-details', recipe.id]">

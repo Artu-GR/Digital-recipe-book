@@ -1,4 +1,3 @@
-
 * { 
     --background: rgba(250, 218, 77, 0.452);
 }
@@ -32,6 +31,7 @@
     border-width: 3px;
     margin-left: 3%;
     width: 30%;
+    float: left;
 }
 
 ion-title{
@@ -45,4 +45,56 @@ ion-button{
     margin-right: 2%;
     z-index: 2;
     margin-top: -30px;
+}
+
+hr{
+    color: black;
+    border: solid;
+}
+
+.info-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%; /* Adjust the gap between info boxes */
+    //margin-top: 10px;
+    margin-left: 5%;
+    width: 65%;
+}
+
+.info{
+    flex: 1 1 30%; /* Adjusts to ensure three columns and responsive design */
+    min-height: 100px; /* Adjust to desired height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    border: solid;
+    border-width: 3px;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-left: 3%;
+    margin-bottom: 3%;
+}
+
+.icon{
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon ion-icon {
+    margin: 0;
+}
+
+.instructions{
+    padding: 10px;
+    width: 63%;
+    margin-left: 35%;
+    margin-right: 2%;
+    border: solid;
+    border-radius: 10px;
+    border-width: 3px;
+    flex-wrap: wrap;
 }

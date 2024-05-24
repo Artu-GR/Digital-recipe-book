@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SpoonacularService } from '../spoonacular.service';
 import { Observable } from 'rxjs';
 import { FavServiceService } from '../fav-service.service';
@@ -16,7 +16,7 @@ export class Tab2Page {
   constructor(private spoonacularService: SpoonacularService, 
     private dbService: FavServiceService,
   private authService: AuthService,
-  private _router: Router) {}
+  private _router: Router,) {}
 
   ngOnInit(){
     this.convertFavs();
@@ -30,7 +30,10 @@ export class Tab2Page {
 
   favIds: any[] = [];
 
+  suggestions: any[] = [];
+
   getRecipes(){
+    console.log("im here");
     if(this.query.trim() !== ''){
       this.spoonacularService.searchRecipes(this.query).subscribe(
         (data) =>{
@@ -38,6 +41,7 @@ export class Tab2Page {
             recipe.image = `https://spoonacular.com/recipeImages/${recipe.image}`;
             return recipe;
           });
+          this.suggestions = [];
         },
         (error) => {
           console.log("No se ha podido recuperar correctamente la informacion", error);
@@ -47,6 +51,27 @@ export class Tab2Page {
     else{
       this.recipes = [];
     }
+  }
+
+  autocompleteSearch() {
+    if (this.query.trim() !== '') {
+      this.spoonacularService.autocompleteRecipeSearch(this.query).subscribe(
+        (data) => {
+          this.suggestions = data;
+        },
+        (error) => {
+          console.log("No se ha podido recuperar correctamente la informacion", error);
+        }
+      );
+    } else {
+      this.suggestions = [];
+    }
+  }
+
+  selectSuggestion(suggestion: any) {
+    this.query = suggestion.title;
+    this.suggestions = [];
+    this.getRecipes();
   }
 
   addFav(recipe: any, event: Event){
