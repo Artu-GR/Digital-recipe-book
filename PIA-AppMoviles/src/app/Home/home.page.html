@@ -19,34 +19,45 @@
   </ion-list>
 
   <div class="recipe-listing">
-    <section class="recommendation">
-      <ion-label><b>Try this delicious recipe today:</b></ion-label>
-      <div *ngIf="recipeCard.url" [routerLink]="['/recipe-details', recommendedRecipe.id]" class="recipeCard">
-        <img [src]="recipeCard.url" alt="Recipe Image" class="recipeCardImage">
-      </div>
-    </section>
-  
-    <section class="popular-recipes" *ngIf="popularRecipes.length">
-      <h2>Popular Recipes</h2>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" *ngFor="let recipe of popularRecipes">
-            <div class="recipe-card" [routerLink]="['/recipe-details', recipe.id]">
-              <div class="recipe-card-content">
-                <img [src]="recipe.image" alt="Recipe Image" class="recipe-card-image">
-                <h3>{{ recipe.title }}</h3>
-              </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6">
+          <section class="recommendation">
+            <ion-label><b>Try this delicious recipe today:</b></ion-label>
+            <div *ngIf="recipeCard.url" [routerLink]="['/recipe-details', recommendedRecipe.id]" class="recipeCard">
+              <img [src]="recipeCard.url" alt="Recipe Image" class="recipeCardImage">
             </div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12">
-            <ion-button [routerLink]="['/tabs/tab2']" expand="block" >View More</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      
-    </section>
+          </section>
+        </ion-col>
+        <ion-col size="12" sizeMd="6">
+          <section class="popular-recipes" *ngIf="popularRecipes.length">
+            <h2>Popular Recipes</h2>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" *ngFor="let recipe of popularRecipes">
+                  <div class="recipe-card" [routerLink]="['/recipe-details', recipe.id]">
+                    <div class="recipe-card-content">
+                      <img [src]="recipe.image" alt="Recipe Image" class="recipe-card-image">
+                      <h3>{{ recipe.title }}</h3>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-button [routerLink]="['/tabs/tab2']" expand="block" >View More</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            
+          </section>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    
+  
   </div>
 
   <ion-footer>

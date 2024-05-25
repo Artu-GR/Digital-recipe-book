@@ -15,12 +15,22 @@
     <ion-label>Aún no tienes recetas favoritas<br>Descubre nuevas recetas!</ion-label>
   </ion-button>
 
-  <ion-list *ngIf="favs && favs.length" class="favorite-list">
+  <ion-grid *ngIf="favs && favs.length" class="favorite-list">
+    <ion-row>
+      <ion-col *ngFor="let recipe of recipes" [routerLink]="['/recipe-details', recipe.id]" class="recipe-card" size="12" sizeMm="6" sizeLg="3">
+        <img [src]="recipe.image" class="recipe-image">
+
+        <ion-label>{{recipe.title}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!--ion-list *ngIf="favs && favs.length" class="favorite-list">
     <ion-item *ngFor="let recipe of recipes" [routerLink]="['/recipe-details', recipe.id]" class="recipe-card"> 
       <img [src]="recipe.image" class="recipe-image">
 
       <ion-label>{{recipe.title}}</ion-label>
     </ion-item>
-  </ion-list>
+  </ion-list-->
 
 </ion-content>

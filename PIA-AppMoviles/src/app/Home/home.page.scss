@@ -3,12 +3,16 @@
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .recipeCardImage{
     border: 3px, solid;
     border-radius: 10px;
     margin-left: 5%;
+    width: 92%;
+    height: auto;
 }
 
 .recipe-card-content {
@@ -23,6 +27,8 @@
     object-fit: cover;
     margin-right: 15px;
     border: 1px, solid;
+    flex-wrap: wrap;
+    float: left;
 }
 
 .recipe-card h3 {
@@ -31,14 +37,14 @@
 }
 
 .popular-recipes{
-    width: 35%;
+    //width: 35%;
     border: 3px, solid;
     border-radius: 10px;
     margin-left: 10%;
     margin-right: 5%;
     flex-wrap: flex;
     margin-top: 20px;
-    height: 100%;
+    //height: 100%;
 }
 
 .recommendation{
@@ -46,7 +52,7 @@
         font-size: larger;
         margin-left: 10%;
     }
-    width: 50%;
+    //width: 50%;
     float: left;
     height: 100%;
 }
