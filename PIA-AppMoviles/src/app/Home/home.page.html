@@ -4,16 +4,73 @@
       <ion-button (click)="logOut()" fill="outline"> <ion-icon slot="start" name="log-out"></ion-icon> Cerrar sesión </ion-button>
     </ion-buttons>
     <ion-title>
-      <i>Catálogo de Recetas</i>
+      <i>Recipe-Find'r</i>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="dailyRecipe">
-    {{ dailyRecipe.title }}
+  <ion-searchbar placeholder="Search for recipes: " (ionInput)="autocompleteSearch()" (keyup.enter)="navigateToSearch(query)" [(ngModel)]="query"></ion-searchbar>
+
+  <ion-list *ngIf="suggestions && suggestions.length">
+    <ion-item *ngFor="let suggestion of suggestions" (click)="navigateToSearch(suggestion.title)">
+      <ion-label>{{ suggestion.title }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div class="recipe-listing">
+    <section class="recommendation">
+      <ion-label><b>Try this delicious recipe today:</b></ion-label>
+      <div *ngIf="recipeCard.url" [routerLink]="['/recipe-details', recommendedRecipe.id]" class="recipeCard">
+        <img [src]="recipeCard.url" alt="Recipe Image" class="recipeCardImage">
+      </div>
+    </section>
+  
+    <section class="popular-recipes" *ngIf="popularRecipes.length">
+      <h2>Popular Recipes</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" *ngFor="let recipe of popularRecipes">
+            <div class="recipe-card" [routerLink]="['/recipe-details', recipe.id]">
+              <div class="recipe-card-content">
+                <img [src]="recipe.image" alt="Recipe Image" class="recipe-card-image">
+                <h3>{{ recipe.title }}</h3>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-button [routerLink]="['/tabs/tab2']" expand="block" >View More</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+    </section>
   </div>
 
+  <ion-footer>
+    <ion-toolbar>
+      <div class="footer-links">
+        <ion-label>About Us</ion-label>
+        <ion-label>Contact Us</ion-label>
+        <ion-label>Privacy Policy</ion-label>
+      </div>
+      <div class="social-media">
+        <ion-icon name="logo-facebook"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+      </div>
+      <div class="newsletter">
+        <ion-label >Sign up for our newsletter:</ion-label>
+        <ion-input placeholder="Enter your email"></ion-input>
+        <ion-button>Sign Up</ion-button>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+ 
 
 
 </ion-content>
+
+

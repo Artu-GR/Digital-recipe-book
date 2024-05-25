@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { FavServiceService } from '../fav-service.service';
 import { getDocs } from '@angular/fire/firestore';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -16,10 +16,14 @@ export class Tab2Page {
   constructor(private spoonacularService: SpoonacularService, 
     private dbService: FavServiceService,
   private authService: AuthService,
-  private _router: Router,) {}
+  private _router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(){
     this.convertFavs();
+    this.route.queryParams.subscribe(params => {
+      this.query = params['query'] || '';
+      this.getRecipes();
+    });
   }
 
   query: string = '';
@@ -33,7 +37,6 @@ export class Tab2Page {
   suggestions: any[] = [];
 
   getRecipes(){
-    console.log("im here");
     if(this.query.trim() !== ''){
       this.spoonacularService.searchRecipes(this.query).subscribe(
         (data) =>{

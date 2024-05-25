@@ -4,14 +4,14 @@
       <ion-button (click)="logOut()" fill="outline"> <ion-icon slot="start" name="log-out"></ion-icon> Cerrar sesión </ion-button>
     </ion-buttons>
     <ion-title>
-      Favoritos
+      <i>Favorites list</i>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <ion-button *ngIf="!favs.length" [routerLink]="['/tabs/tab2']" expand="block" fill="outline">
+  <ion-button *ngIf="!favs.length" [routerLink]="['/tabs/tab2']" expand="block" fill="outline" class="noFavs">
     <ion-label>Aún no tienes recetas favoritas<br>Descubre nuevas recetas!</ion-label>
   </ion-button>
 

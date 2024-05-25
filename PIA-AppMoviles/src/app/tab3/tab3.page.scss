@@ -1,44 +1,49 @@
 .favorite-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  
-  .recipe-card {
-    width: 48%; /* Approximately a quarter of the screen */
-    height: 300px; /* Fixed height for the card */
-    margin: 1%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden; /* To ensure content does not overflow */
-    border-radius: 10px;
-    border: solid;
-    border-width: 1px;
-  }
-  
-  .recipe-image {
-    width: 80%;
-    height: 70%; /* Take up 70% of the card height */
-    object-fit: cover; /* Cover the area without distorting the image */
-  }
-  
-  .recipe-details {
-    height: 30%; /* Remaining space for the details */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  ion-card-title {
-    font-size: 1.2em;
-    margin: 10px 0;
-  }
-  
-  ion-button {
-    text-align: center;
-    width: 100%;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.recipe-card {
+  width: 48%; /* Approximately a quarter of the screen */
+  height: 300px; /* Fixed height for the card */
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden; /* To ensure content does not overflow */
+  border-radius: 10px;
+  border: solid;
+  border-width: 1px;
+}
+
+.recipe-image {
+  width: 80%;
+  height: 70%; /* Take up 70% of the card height */
+  object-fit: cover; /* Cover the area without distorting the image */
+}
+
+.recipe-details {
+  height: 30%; /* Remaining space for the details */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-card-title {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+ion-button {
+  text-align: center;
+  width: 100%;
+}
+
+.noFavs{
+  margin: 10%;
+  width: 80%;
+  margin-top: 40vh;
+}
