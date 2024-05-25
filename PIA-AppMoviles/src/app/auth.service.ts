@@ -35,13 +35,25 @@ export class AuthService {
     }
 
     updateUsername(username: string) {
-        console.log('yes')
         if (this.auth.currentUser !== null){
                 updateProfile(this.auth.currentUser, {
                     displayName: username
                 }).then( () => {
                     console.log(this.auth.currentUser?.displayName);
 
+                } ).catch((err) => {
+                    console.log(err);
+                })
+        }
+
+    }
+
+    updatePhotoURL(URL: string) {
+        if (this.auth.currentUser !== null){
+                updateProfile(this.auth.currentUser, {
+                    photoURL: URL
+                }).then( () => {
+                    
                 } ).catch((err) => {
                     console.log(err);
                 })

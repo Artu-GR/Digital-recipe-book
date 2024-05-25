@@ -1,9 +1,13 @@
-import { AfterContentChecked, AfterContentInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { Subscription, filter } from 'rxjs';
+import { Subscription, filter, last } from 'rxjs';
+import { AvatarPhotoService } from '../avatar-photo.service';
+import { InfiniteScrollCustomEvent, IonModal } from '@ionic/angular';
+import { PhotoService } from '../photo.service';
+import { SaveService } from '../save.service';
 
 interface userInfo {
   'username': string | null| undefined,
@@ -28,6 +32,13 @@ export class Tab4Component  implements OnInit, OnDestroy, DoCheck {
     };
 
   isAlertOpen = false;
+  isModalOpen = false;
+  images: any[] =[];
+  searchString: string= '';
+  lowCounter: number=0;
+  highCounter: number=0;
+  lastSearch: string='';
+  URLSelected: string='';
 
   private subscription : Subscription | null = null;
 
@@ -35,7 +46,48 @@ export class Tab4Component  implements OnInit, OnDestroy, DoCheck {
   constructor(private authService: AuthService,
     private _router: Router,
     private formBuilder : FormBuilder,
+    private AvatarService: AvatarPhotoService,
+    private PhotoService: PhotoService,
+    private saveService: SaveService,
   ) {}
+
+  async LoadSearch(str : string){
+    let aux: any;
+    if (this.lastSearch === this.searchString
+      && this.lastSearch !== ''
+    ){
+      this.lowCounter += 10;
+      this.highCounter += 10;
+    }
+    else {
+      this.lastSearch = this.searchString;
+      this.lowCounter = 0;
+      this.highCounter = 0;
+      this.images = [];
+    }
+
+    await this.AvatarService.getImages(str, this.lowCounter, this.highCounter).subscribe((data)=> {
+      aux = data;
+      this.images = this.images.concat(aux.items);
+      console.log(this.images)
+    })
+    console.log(this.images);
+  }
+
+  onIonInfinite(ev: InfiniteScrollCustomEvent){
+    this.LoadSearch(this.searchString);
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete()
+    }, 2000);
+  }
+
+
+
+
+  setModalOpen(bool: boolean){
+    this.isModalOpen = bool;
+    this.URLSelected = '';
+  }
 
   UserNameForm = this.formBuilder.group({
     username: ['', Validators.required]
@@ -63,6 +115,25 @@ export class Tab4Component  implements OnInit, OnDestroy, DoCheck {
       },
     },
   ];
+
+  public alertButtonsUsername = [
+    {
+      text: 'Cancelar',
+      role: 'cancel',
+      handler: () => {
+        console.log('cancel')
+      },
+    },
+    {
+      text: 'Continuar',
+      role: 'confirm',
+      handler: () => {
+        this.updateUserName();
+      },
+    },
+  ];
+
+  
 
 
   alertButtonsVerified = ['Entendido']
@@ -95,6 +166,15 @@ export class Tab4Component  implements OnInit, OnDestroy, DoCheck {
     this.isAlertOpen = bool;
   }
 
+  changeURLSelected(str: string){
+    this.URLSelected = str;
+  }
+
+
+  async changeProfilePicture(url: string){
+    await this.authService.updatePhotoURL(url);
+    this.setModalOpen(false);
+  }
 
   async updateUserName(){
     if (this.UserNameForm.value.username)
@@ -129,6 +209,16 @@ export class Tab4Component  implements OnInit, OnDestroy, DoCheck {
       }
       return null;
     }
+  }
+
+  TakePhoto(){
+    this.PhotoService.addNewToGallery().then(async (data) => {
+      if (data){
+        this.changeProfilePicture(data);
+      }
+
+
+    });
   }
 
 }

@@ -24,31 +24,70 @@
   [buttons]="alertButtonsPassword"
 ></ion-alert>
 
+<ion-alert
+  trigger="updateUsername"
+  header="AVISO"
+  message="¿Desea continuar y cambiar el nombre de usuario?"
+  [buttons]="alertButtonsUsername"
+></ion-alert>
+
+
+<ion-modal [isOpen]="isModalOpen" (didDismiss)="setModalOpen(false)">
+  <ng-template>
+    <ion-toolbar>
+      <ion-searchbar (ionChange)="LoadSearch(searchString)" [(ngModel)]="searchString"></ion-searchbar>
+    </ion-toolbar>
+    <ion-content>
+      <ion-list>
+        <ion-card *ngFor="let image of images">
+          <img class="avatarImage" src="{{image.link}}" (click)="changeURLSelected(image.link)">
+        </ion-card>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-content>
+    <ion-footer>
+      <ion-button [disabled]="URLSelected === ''" expand="block" (click)="changeProfilePicture(URLSelected)"> Aceptar </ion-button>
+    </ion-footer>
+  </ng-template>
+</ion-modal>
+
+
 <ion-content [fullscreen]="true">
 
  <div id="container">
 
 
     <div id="info-container" class="ion-padding">
-      <div style="width: 20%; height: auto;">
+      <div>
         <img id="Image" [src]=currentUserInfo.photoURL>
       </div>
+      <ion-button expand="block" [disabled]="currentUserInfo.emailVerified" (click)="setModalOpen(true)" >  
+       <ion-icon name="search">  </ion-icon> Buscar foto
+      </ion-button>
+      <ion-button expand="block" [disabled]="currentUserInfo.emailVerified" (click)="TakePhoto()" >  
+        <ion-icon name="camera">  </ion-icon>  Tomar Foto
+      </ion-button>
+
         <h1>
           {{currentUserInfo.username}}
         </h1>
         <h6>
           {{currentUserInfo.email}}
         </h6>
+
+        
     </div>
 
     <div id="options-container" class="ion-padding">
-      <form [formGroup]="UserNameForm" (ngSubmit)="updateUserName()">
+      <form [formGroup]="UserNameForm">
         
           
           <h1> Cambiar nombre de usuario </h1>
 
             <ion-input formControlName="username" fill="outline" placeholder="Nombre de Usuario">  </ion-input>
-            <ion-button type="submit" [disabled]="!UserNameForm.valid || currentUserInfo.emailVerified"> Aceptar </ion-button>
+            <ion-button id="updateUsername" [disabled]="!UserNameForm.valid || currentUserInfo.emailVerified"> Aceptar </ion-button>
           
         
       </form>
